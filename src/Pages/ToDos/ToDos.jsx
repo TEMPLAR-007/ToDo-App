@@ -72,8 +72,8 @@ const ToDos = () => {
   return (
     <section data-theme={theme ? "light" : "night"}>
       <div className="container mx-auto">
-        <div className="todo-header flex justify-between my-5 p-4 rounded bg-base-300 items-center">
-          <h2 className="text-3xl font-semibold">
+        <div className="todo-header justify-center flex flex-wrap gap-5 md:gap-0 md:justify-between my-5 p-4 rounded bg-base-300 items-center">
+          <h2 className="text-2xl md:text-3xl font-semibold">
             ToDos Of{" "}
             <span className="text-sky-400">
               {auth?.currentUser?.displayName}

@@ -57,9 +57,15 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
 
   return (
     <div className="m-10">
-      <label htmlFor="my-modal-3" className="btn btn-primary mb-4 modal-button">
-        Add Task
-      </label>
+      {todos?.result?.length > 0 && (
+        <label
+          htmlFor="my-modal-3"
+          className="btn btn-primary mb-4 modal-button"
+        >
+          Add Task
+        </label>
+      )}
+
       <div className="overflow-x-auto">
         {!isLoading ? (
           todos?.result?.length > 0 ? (
