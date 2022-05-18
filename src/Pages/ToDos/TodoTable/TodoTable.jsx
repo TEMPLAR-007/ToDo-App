@@ -13,8 +13,8 @@ const TodoTable = () => {
               <th></th>
               <th>Title</th>
               <th>Description</th>
-              <th>Action</th>
-              <th>Delete</th>
+              <th width="120px">Action</th>
+              <th width="120px">Delete</th>
             </tr>
           </thead>
           <tbody>

@@ -13,7 +13,7 @@ const TodoBox = () => {
             >
               ✕
             </label>
-            <h3 className="text-lg font-bold">Add You Task</h3>
+            <h3 className="text-lg font-bold">Add Your Task</h3>
             <p className="py-4">
               You've been selected for a chance to get one year of subscription
               to use Wikipedia for free!
@@ -30,8 +30,11 @@ const TodoBox = () => {
               <label htmlFor="title">ToDo Description</label>
               <textarea
                 className="textarea textarea-bordered w-full"
-                placeholder="Bio"
+                placeholder="ToDo description"
               ></textarea>
+            </div>
+            <div>
+              <button className="btn bg-sky-500 text-white">Add Task</button>
             </div>
           </div>
         </div>
