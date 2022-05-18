@@ -1,10 +1,10 @@
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useQuery } from "react-query";
 import { auth } from "../../Firebase/Firebase.config";
 import TodoBox from "./TodoBox/TodoBox";
 import TodoTable from "./TodoTable/TodoTable";
-
 const ToDos = () => {
   const [theme, setTheme] = useState(false);
   const themeToggle = () => {
@@ -54,6 +54,16 @@ const ToDos = () => {
       });
   };
 
+  /* Getting fetching Data */
+  const { isLoading, data: todos } = useQuery("todosApp", () =>
+    fetch(`http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((res) => res.json())
+  );
+
   return (
     <section data-theme={theme ? "light" : "night"}>
       <div className="container mx-auto">
@@ -101,7 +111,7 @@ const ToDos = () => {
         </div>
         <div className="todo-body">
           <TodoBox handleCreateToDos={handleCreateToDos} />
-          <TodoTable />
+          <TodoTable isLoading={isLoading} todos={todos} />
         </div>
       </div>
     </section>
