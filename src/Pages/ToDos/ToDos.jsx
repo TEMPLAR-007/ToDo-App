@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import TodoBox from "./TodoBox/TodoBox";
 import TodoTable from "./TodoTable/TodoTable";
 
 const ToDos = () => {
+  const [theme, setTheme] = useState(false);
+  const themeToggle = () => {
+    setTheme((prevState) => !prevState);
+  };
   return (
-    <section>
+    <section data-theme={theme ? "light" : "night"}>
       <div className="container mx-auto">
         <div className="todo-header flex justify-between my-5 p-4 rounded bg-base-300 items-center">
           <h2 className="text-3xl font-semibold">
@@ -12,7 +16,7 @@ const ToDos = () => {
           </h2>
           <div className="user-info flex items-center gap-4">
             <label className="swap swap-rotate mx-4">
-              <input type="checkbox" />
+              <input type="checkbox" onClick={themeToggle} />
 
               <svg
                 className="swap-on fill-current w-5 h-5"
