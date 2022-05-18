@@ -23,7 +23,9 @@ const TodoBox = ({ handleCreateToDos }) => {
               to use Wikipedia for free!
             </p>
             <div className="my-3">
-              <label htmlFor="title">ToDo Title</label>
+              <label htmlFor="title" className="my-1 text-sm">
+                ToDo Title
+              </label>
               <input
                 type="text"
                 placeholder="Type here"
@@ -32,7 +34,9 @@ const TodoBox = ({ handleCreateToDos }) => {
               />
             </div>
             <div className="my-3">
-              <label htmlFor="title">ToDo Description</label>
+              <label htmlFor="title" className="my-1 text-sm">
+                ToDo Description
+              </label>
               <textarea
                 className="textarea textarea-bordered w-full"
                 placeholder="ToDo description"
