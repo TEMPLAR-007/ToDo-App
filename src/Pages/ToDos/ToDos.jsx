@@ -116,7 +116,7 @@ const ToDos = () => {
         </div>
         <div className="todo-body">
           <TodoBox handleCreateToDos={handleCreateToDos} />
-          <TodoTable isLoading={isLoading} todos={todos} />
+          <TodoTable isLoading={isLoading} todos={todos} refetch={refetch} />
         </div>
       </div>
     </section>
