@@ -14,8 +14,10 @@ const ToDos = () => {
   const handleLogOut = async () => {
     await signOut(auth).then(() => {
       toast.success("SignOut successfully done.");
+      localStorage.removeItem("accessToken");
     });
   };
+
   return (
     <section data-theme={theme ? "light" : "night"}>
       <div className="container mx-auto">
