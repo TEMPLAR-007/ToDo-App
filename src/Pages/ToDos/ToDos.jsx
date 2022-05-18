@@ -18,6 +18,42 @@ const ToDos = () => {
     });
   };
 
+  /*  Handle Create ToDos */
+
+  const handleCreateToDos = async (event) => {
+    event.preventDefault();
+    const title = event.target.title.value;
+    const desc = event.target.desc.value;
+    if (!title) return toast.error(`Title Field is required.`);
+    if (!desc) return toast.error(`Description field is required.`);
+
+    const createData = {
+      title,
+      desc,
+      createAt: new Date().toDateString(),
+      author: {
+        name: auth?.currentUser?.displayName,
+        uid: auth?.currentUser?.uid,
+      },
+    };
+
+    await fetch(`http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(createData),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          toast.success(result.message);
+          event.target.reset();
+        }
+      });
+  };
+
   return (
     <section data-theme={theme ? "light" : "night"}>
       <div className="container mx-auto">
@@ -64,7 +100,7 @@ const ToDos = () => {
           </div>
         </div>
         <div className="todo-body">
-          <TodoBox />
+          <TodoBox handleCreateToDos={handleCreateToDos} />
           <TodoTable />
         </div>
       </div>

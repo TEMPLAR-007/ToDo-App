@@ -1,9 +1,13 @@
 import React from "react";
 
-const TodoBox = () => {
+const TodoBox = ({ handleCreateToDos }) => {
   return (
     <div>
-      <form action="" className="flex items-stretch gap-1 justify-center">
+      <form
+        onSubmit={handleCreateToDos}
+        action=""
+        className="flex items-stretch gap-1 justify-center"
+      >
         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal">
           <div className="modal-box relative">
@@ -24,6 +28,7 @@ const TodoBox = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full"
+                name="title"
               />
             </div>
             <div className="my-3">
@@ -31,6 +36,7 @@ const TodoBox = () => {
               <textarea
                 className="textarea textarea-bordered w-full"
                 placeholder="ToDo description"
+                name="desc"
               ></textarea>
             </div>
             <div>
