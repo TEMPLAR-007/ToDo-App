@@ -49,13 +49,18 @@ const ToDos = () => {
       .then((result) => {
         if (result.success) {
           toast.success(result.message);
+          refetch();
           event.target.reset();
         }
       });
   };
 
   /* Getting fetching Data */
-  const { isLoading, data: todos } = useQuery("todosApp", () =>
+  const {
+    isLoading,
+    data: todos,
+    refetch,
+  } = useQuery("todosApp", () =>
     fetch(`http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`, {
       method: "GET",
       headers: {
