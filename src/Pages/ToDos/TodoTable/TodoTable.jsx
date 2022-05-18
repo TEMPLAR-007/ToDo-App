@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loader from "../../../Components/Loader/Loader";
 import { auth } from "../../../Firebase/Firebase.config";
@@ -35,6 +36,25 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
     });
   };
 
+  const handleCompleteTodo = async (id) => {
+    await fetch(
+      `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+      {
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          toast.success(result.message);
+          refetch();
+        }
+      });
+  };
+
   return (
     <div className="m-10">
       <label htmlFor="my-modal-3" className="btn btn-primary mb-4 modal-button">
@@ -56,11 +76,33 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
               <tbody>
                 {todos?.result?.map((todo, ind) => (
                   <tr key={todo._id}>
-                    <td>{ind + 1}</td>
-                    <td>{todo.title}</td>
-                    <td>{todo.desc}</td>
+                    <td
+                      style={{
+                        textDecoration: `${todo.completed && "line-through"}`,
+                      }}
+                    >
+                      {ind + 1}
+                    </td>
+                    <td
+                      style={{
+                        textDecoration: `${todo.completed && "line-through"}`,
+                      }}
+                    >
+                      {todo.title}
+                    </td>
+                    <td
+                      style={{
+                        textDecoration: `${todo.completed && "line-through"}`,
+                      }}
+                    >
+                      {todo.desc}
+                    </td>
                     <td>
-                      <button className="btn bg-green-500 text-white border-green-400 btn-sm">
+                      <button
+                        onClick={() => handleCompleteTodo(todo._id)}
+                        className={`btn bg-green-500 text-white border-green-400 btn-sm `}
+                        disabled={todo?.completed && true}
+                      >
                         Complete
                       </button>
                     </td>
