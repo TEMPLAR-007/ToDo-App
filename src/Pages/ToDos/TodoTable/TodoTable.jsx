@@ -103,7 +103,7 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
                         className={`btn bg-green-500 text-white border-green-400 btn-sm `}
                         disabled={todo?.completed && true}
                       >
-                        Complete
+                        {todo?.completed ? "Completed" : "Complete"}
                       </button>
                     </td>
                     <td>
