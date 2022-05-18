@@ -1,4 +1,7 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { auth } from "../../Firebase/Firebase.config";
 import TodoBox from "./TodoBox/TodoBox";
 import TodoTable from "./TodoTable/TodoTable";
 
@@ -7,12 +10,21 @@ const ToDos = () => {
   const themeToggle = () => {
     setTheme((prevState) => !prevState);
   };
+  /* handle log out  */
+  const handleLogOut = async () => {
+    await signOut(auth).then(() => {
+      toast.success("SignOut successfully done.");
+    });
+  };
   return (
     <section data-theme={theme ? "light" : "night"}>
       <div className="container mx-auto">
         <div className="todo-header flex justify-between my-5 p-4 rounded bg-base-300 items-center">
           <h2 className="text-3xl font-semibold">
-            ToDos Of <span className="text-sky-400">Ashik Mahmud</span>
+            ToDos Of{" "}
+            <span className="text-sky-400">
+              {auth?.currentUser?.displayName}
+            </span>
           </h2>
           <div className="user-info flex items-center gap-4">
             <label className="swap swap-rotate mx-4">
@@ -37,11 +49,16 @@ const ToDos = () => {
             <div className="avatar w-12 overflow-hidden h-12 border rounded-full border-slate-400">
               <img
                 className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/ogw/ADea4I62eAbslzhzcL8PC8FUwNeP1DD5IufopxZVnd5_Ww=s32-c-mo"
-                alt="avatar"
+                src={
+                  auth?.currentUser?.photoURL ||
+                  "https://www.seekpng.com/png/detail/428-4287240_no-avatar-user-circle-icon-png.png"
+                }
+                alt={auth?.currentUser?.displayName}
               />
             </div>
-            <button className="text-red-500">Log Out</button>
+            <button onClick={handleLogOut} className="text-red-500">
+              Log Out
+            </button>
           </div>
         </div>
         <div className="todo-body">
