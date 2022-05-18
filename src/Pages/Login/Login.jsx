@@ -1,4 +1,4 @@
-import { GoogleAuthProvider } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../App";
@@ -19,6 +19,11 @@ const Login = () => {
     socialLogin(provider);
   };
 
+  /* handle facebook sign in */
+  const handleFacebookSignIn = async () => {
+    const provider = new FacebookAuthProvider();
+    socialLogin(provider);
+  };
   return (
     <section className="grid place-items-center h-screen ">
       <div className="login-wrapper p-8 py-10 shadow-lg bg-base-300 rounded lg:w-96 text-center">
@@ -33,7 +38,10 @@ const Login = () => {
             Continue with Google
           </button>
           <div className="divider">OR</div>
-          <button className="btn btn-primary btn-outline  p-3  border rounded-full px-10 bg-base-300 shadow ">
+          <button
+            onClick={handleFacebookSignIn}
+            className="btn btn-primary btn-outline  p-3  border rounded-full px-10 bg-base-300 shadow "
+          >
             Continue with Facebook
           </button>
         </div>
