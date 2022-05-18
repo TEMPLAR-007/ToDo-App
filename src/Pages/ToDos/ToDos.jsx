@@ -37,14 +37,17 @@ const ToDos = () => {
       },
     };
 
-    await fetch(`http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(createData),
-    })
+    await fetch(
+      `https://task-todos-server.herokuapp.com/todos?uid=${auth?.currentUser?.uid}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(createData),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         if (result.success) {
@@ -61,12 +64,15 @@ const ToDos = () => {
     data: todos,
     refetch,
   } = useQuery("todosApp", () =>
-    fetch(`http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => res.json())
+    fetch(
+      `https://task-todos-server.herokuapp.com/todos?uid=${auth?.currentUser?.uid}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    ).then((res) => res.json())
   );
 
   return (
