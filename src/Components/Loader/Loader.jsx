@@ -1,13 +1,9 @@
 import React from "react";
-
-const Loader = () => {
+import HashLoader from "react-spinners/HashLoader";
+const Loader = ({ loading }) => {
   return (
-    <div className="text-center py-10">
-      <img
-        src="https://i.stack.imgur.com/ATB3o.gif"
-        alt="loader"
-        className="w-40"
-      />
+    <div className="text-center py-20">
+      <HashLoader color={"#00A4E8"} loading={loading} size={80} />
     </div>
   );
 };

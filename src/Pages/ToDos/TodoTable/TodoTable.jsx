@@ -136,7 +136,7 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
             </div>
           )
         ) : (
-          <Loader />
+          <Loader loading={isLoading} />
         )}
       </div>
     </div>
