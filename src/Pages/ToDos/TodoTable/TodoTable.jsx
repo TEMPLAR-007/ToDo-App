@@ -17,7 +17,7 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `https://task-todos-server.herokuapp.com/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+          `https://task-todo-server.vercel.app/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
           {
             method: "DELETE",
             headers: {
@@ -38,7 +38,7 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
 
   const handleCompleteTodo = async (id) => {
     await fetch(
-      `https://task-todos-server.herokuapp.com/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+      `https://task-todo-server.vercel.app/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
       {
         method: "PATCH",
         headers: {

@@ -1,5 +1,5 @@
 const Token = async(token) =>{
-    fetch(`https://task-todos-server.herokuapp.com/login`, {
+    fetch(`https://task-todo-server.vercel.app/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

@@ -39,7 +39,7 @@ const ToDos = () => {
     };
 
     await fetch(
-      `https://task-todos-server.herokuapp.com/todos?uid=${auth?.currentUser?.uid}`,
+      `https://task-todo-server.vercel.app/todos?uid=${auth?.currentUser?.uid}`,
       {
         method: "POST",
         headers: {
@@ -66,7 +66,7 @@ const ToDos = () => {
     refetch,
   } = useQuery("todosApp", () =>
     fetch(
-      `https://task-todos-server.herokuapp.com/todos?uid=${auth?.currentUser?.uid}`,
+      `https://task-todo-server.vercel.app/todos?uid=${auth?.currentUser?.uid}`,
       {
         method: "GET",
         headers: {
