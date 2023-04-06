@@ -46,7 +46,7 @@ const ToDos = () => {
     // console.log(createData);
 
     await fetch(
-      `http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`,
+      `https://todo-app-server-production-e896.up.railway.app/todos?uid=${auth?.currentUser?.uid}`,
       {
         method: "POST",
         headers: {
@@ -91,7 +91,7 @@ const ToDos = () => {
     console.log(updateTodo);
 
     await fetch(
-      `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+      `https://todo-app-server-production-e896.up.railway.app/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
       {
         method: "PUT",
         headers: {
@@ -121,7 +121,7 @@ const ToDos = () => {
     refetch,
   } = useQuery("todosApp", () =>
     fetch(
-      `http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`,
+      `https://todo-app-server-production-e896.up.railway.app/todos?uid=${auth?.currentUser?.uid}`,
       {
         method: "GET",
         headers: {

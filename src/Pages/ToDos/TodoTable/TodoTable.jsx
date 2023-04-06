@@ -18,7 +18,7 @@ const TodoTable = ({ isLoading, todos, refetch, setUpdatedata }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+          `https://todo-app-server-production-e896.up.railway.app/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
           {
             method: "DELETE",
             headers: {
@@ -39,7 +39,7 @@ const TodoTable = ({ isLoading, todos, refetch, setUpdatedata }) => {
 
   const handleCompleteTodo = async (id) => {
     await fetch(
-      `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+      `https://todo-app-server-production-e896.up.railway.app/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
       {
         method: "PATCH",
         headers: {
