@@ -18,9 +18,8 @@ const TodoBox = ({ handleCreateToDos }) => {
               ✕
             </label>
             <h3 className="text-lg font-bold">Add Your Task</h3>
-            <p className="py-4">
-              You've been selected for a chance to get one year of subscription
-              to use Wikipedia for free!
+            <p className="py-4 text-warning">
+              “ Each day I will accomplish one thing on my to do list. ”
             </p>
             <div className="my-3">
               <label htmlFor="title" className="my-1 text-sm">

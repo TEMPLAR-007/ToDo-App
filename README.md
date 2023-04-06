@@ -1,24 +1,31 @@
 # Task ToDo Application
 
-this is task todo application using react and firebase mongoDB and much more things
+This is task todo application using react, firebase, Node Js, mongoDB and much more things
 
 ## Using Technologies
 
 - React Js
 - Firebase
 - React hot toast
-- Tailwind.
+- Tailwind CSS
+- Node Js
+- MongoDb
+
 
 ## Required Features
 
-- you can authorization of yourself and make of your account
-- And also can add of your toDo
-- and completed toDo option can be.
+- you can authorization of yourself and make your account
+- You can add your ToDo
+- You can edit your ToDo
+- You can mark as complete your ToDo
+- and also can delete your ToDo
 
-## Demo Link
 
 ## Added Demo Preview
 
 ![imageScreenshot](./preview.png)
+
+### Server Back-end code - [Click Here]()
+
 
 > Thanks for reach out me on Github.

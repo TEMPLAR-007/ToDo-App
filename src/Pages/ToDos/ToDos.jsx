@@ -6,7 +6,12 @@ import { auth } from "../../Firebase/Firebase.config";
 import TodoBox from "./TodoBox/TodoBox";
 import TodoTable from "./TodoTable/TodoTable";
 const ToDos = () => {
+
   const [theme, setTheme] = useState(JSON.parse(localStorage.getItem("theme")));
+  const [updateData, setUpdatedata] = useState({})
+
+  console.log(updateData._id);
+
   useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
@@ -38,8 +43,10 @@ const ToDos = () => {
       },
     };
 
+    // console.log(createData);
+
     await fetch(
-      `https://task-todo-server.vercel.app/todos?uid=${auth?.currentUser?.uid}`,
+      `http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`,
       {
         method: "POST",
         headers: {
@@ -59,6 +66,54 @@ const ToDos = () => {
       });
   };
 
+
+  /*  Handle Update ToDos */
+
+  const handleUpdateToDos = async (event) => {
+    event.preventDefault();
+    const title = event.target.title.value;
+    const desc = event.target.desc.value;
+    const id = updateData._id
+
+    if (!title) return toast.error(`Title Field is required.`);
+    if (!desc) return toast.error(`Description field is required.`);
+
+    const updateTodo = {
+      title,
+      desc,
+      createAt: new Date().toDateString(),
+      author: {
+        name: auth?.currentUser?.displayName,
+        uid: auth?.currentUser?.uid,
+      },
+    };
+
+    console.log(updateTodo);
+
+    await fetch(
+      `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(updateTodo),
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          toast.success(result.message);
+          refetch();
+          event.target.reset();
+        }
+      });
+  };
+
+
+
+
   /* Getting fetching Data */
   const {
     isLoading,
@@ -66,7 +121,7 @@ const ToDos = () => {
     refetch,
   } = useQuery("todosApp", () =>
     fetch(
-      `https://task-todo-server.vercel.app/todos?uid=${auth?.currentUser?.uid}`,
+      `http://localhost:5000/todos?uid=${auth?.currentUser?.uid}`,
       {
         method: "GET",
         headers: {
@@ -76,16 +131,17 @@ const ToDos = () => {
     ).then((res) => res.json())
   );
 
+
+
   return (
     <section data-theme={theme ? "emerald" : "night"} className="h-screen pt-5">
       <div className="container mx-auto">
         <div
-          className={`todo-header justify-center flex flex-wrap gap-5 md:gap-0 md:justify-between py-5 p-4 rounded  items-center ${
-            theme ? "bg-base-200" : "bg-base-300"
-          }`}
+          className={`todo-header justify-center flex flex-wrap gap-5 md:gap-0 md:justify-between py-5 p-4 rounded  items-center ${theme ? "bg-base-200" : "bg-base-300"
+            }`}
         >
           <h2 className="text-2xl md:text-3xl font-semibold">
-            ToDos Of{" "}
+            ToDo's Of - {" "}
             <span className="text-sky-400">
               {auth?.currentUser?.displayName}
             </span>
@@ -130,8 +186,57 @@ const ToDos = () => {
         </div>
         <div className="todo-body">
           <TodoBox handleCreateToDos={handleCreateToDos} />
-          <TodoTable isLoading={isLoading} todos={todos} refetch={refetch} />
+          <TodoTable isLoading={isLoading} todos={todos} refetch={refetch} setUpdatedata={setUpdatedata} />
         </div>
+
+        {
+          updateData &&
+          <form
+            onSubmit={handleUpdateToDos}
+            action=""
+            className="flex items-stretch gap-1 justify-center"
+          >
+            <input type="checkbox" id="update-modal-3" className="modal-toggle" />
+            <div className="modal">
+              <div className="modal-box relative">
+                <label htmlFor="update-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                <h3 className="text-lg font-bold">Update Your Task</h3>
+                <p className="py-4 text-warning">
+                  “ Each day I will accomplish one thing on my to do list. ”
+                </p>
+                <div className="my-3">
+                  <label htmlFor="title" className="my-1 text-sm">
+                    ToDo Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    className="input input-bordered w-full"
+                    name="title"
+                    defaultValue={updateData.title}
+                  />
+                </div>
+                <div className="my-3">
+                  <label htmlFor="title" className="my-1 text-sm">
+                    ToDo Description
+                  </label>
+                  <textarea
+                    className="textarea textarea-bordered w-full"
+                    placeholder="ToDo description"
+                    name="desc"
+                    defaultValue={updateData.desc}
+                  ></textarea>
+                </div>
+                <div>
+                  <button className="btn bg-sky-500 text-white">Update</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+
+        }
+
       </div>
     </section>
   );

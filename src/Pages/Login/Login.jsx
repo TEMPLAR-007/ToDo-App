@@ -33,16 +33,16 @@ const Login = () => {
         <div className="btn-groups  flex flex-col justify-center items-center">
           <button
             onClick={handleGoogleSignIn}
-            className="p-3 btn btn-primary  border rounded-full px-10  shadow "
+            className="p-3 btn btn-warning text-w btn-outline border rounded-full px-10 shadow "
           >
-            Continue with Google
+            <img className="mr-2" width={25} src="https://img.icons8.com/fluency/256/google-logo.png" alt="" /> Continue with Google
           </button>
           <div className="divider">OR</div>
           <button
             onClick={handleFacebookSignIn}
-            className="btn btn-primary btn-outline  p-3  border rounded-full px-10 bg-base-300 shadow "
+            className="p-3 btn btn-info text-w btn-outline border rounded-full px-8 shadow "
           >
-            Continue with Facebook
+            <img className="mr-2" width={27} src="https://img.icons8.com/color/256/facebook-new.png" alt="" /> Continue with Facebook
           </button>
         </div>
       </div>

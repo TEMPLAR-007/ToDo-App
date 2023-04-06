@@ -3,7 +3,8 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loader from "../../../Components/Loader/Loader";
 import { auth } from "../../../Firebase/Firebase.config";
-const TodoTable = ({ isLoading, todos, refetch }) => {
+const TodoTable = ({ isLoading, todos, refetch, setUpdatedata }) => {
+
   /* handle delete todo */
   const handleDeleteTodo = async (id) => {
     Swal.fire({
@@ -17,7 +18,7 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `https://task-todo-server.vercel.app/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+          `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
           {
             method: "DELETE",
             headers: {
@@ -38,7 +39,7 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
 
   const handleCompleteTodo = async (id) => {
     await fetch(
-      `https://task-todo-server.vercel.app/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+      `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
       {
         method: "PATCH",
         headers: {
@@ -75,6 +76,9 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
                   <th></th>
                   <th>Title</th>
                   <th>Description</th>
+                  <th>Due date</th>
+                  <th>Details</th>
+                  <th>Edit</th>
                   <th width="120px">Action</th>
                   <th width="120px">Delete</th>
                 </tr>
@@ -103,21 +107,58 @@ const TodoTable = ({ isLoading, todos, refetch }) => {
                     >
                       {todo.desc}
                     </td>
+                    <td
+                      style={{
+                        textDecoration: `${todo.completed && "line-through"}`,
+                      }}
+                    >
+                      {todo.createAt}
+                    </td>
+                    <td>
+                      <>
+
+                        <label htmlFor="view-modal-3" className="btn bg-transparent border-none"><img width={25} src="https://img.icons8.com/flat-round/256/info.png" alt="" /></label>
+
+
+                        <input type="checkbox" id="view-modal-3" className="modal-toggle" />
+                        <div className="modal">
+                          <div className="modal-box relative">
+                            <label htmlFor="view-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                            <p><span className="font-bold text-warning">Title:</span>  {todo.title}</p>
+                            <br />
+                            <p><span className="font-bold text-warning">Desc:</span>  {todo.desc}</p>
+                            <br />
+                            <p><span className="font-bold text-warning">Create-Date:</span>  {todo.createAt}</p>
+                          </div>
+                        </div>
+
+                      </>
+                    </td>
+
+                    <td>
+                      <label htmlFor="update-modal-3" className="btn bg-transparent border-none" onClick={() => setUpdatedata(todo)}
+                        disabled={todo?.completed && true}
+                      >
+                        <img width={30} src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/256/external-edit-interface-kiranshastry-lineal-color-kiranshastry-1.png" alt="" />
+                      </label>
+                    </td>
+
                     <td>
                       <button
                         onClick={() => handleCompleteTodo(todo._id)}
-                        className={`btn bg-green-500 text-white border-green-400 btn-sm `}
+                        // className={`btn bg-green-500 text-white border-green-400 btn-sm `}
                         disabled={todo?.completed && true}
                       >
-                        {todo?.completed ? "Completed" : "Complete"}
+                        {todo?.completed ? <input type="checkbox" checked="checked" className="checkbox" /> : <input type="checkbox" checked className="checkbox checkbox-success" />}
                       </button>
+
                     </td>
                     <td>
                       <button
                         onClick={() => handleDeleteTodo(todo._id)}
                         className="btn btn-error btn-sm"
                       >
-                        Delete
+                        <img width={25} src="https://img.icons8.com/material-sharp/256/delete-trash.png" alt="" />
                       </button>
                     </td>
                   </tr>
