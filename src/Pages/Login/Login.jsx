@@ -28,7 +28,7 @@ const Login = () => {
     <section className="grid place-items-center h-screen ">
       <div className="login-wrapper p-8 py-10 shadow-lg bg-base-300 rounded lg:w-96 text-center">
         <div className="title mb-6 text-center">
-          <h2 className="text-xl ">ToDo App</h2>
+          <h2 className="text-xl "><img width={50} className="display: inline" src="https://img.icons8.com/nolan/256/windows-notepad.png" alt="" />ToDo</h2>
         </div>
         <div className="btn-groups  flex flex-col justify-center items-center">
           <button

@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "task-todos-app"
-  }
+    "default": "task-todos-app",
+    "build": "mine-task-6ef1d"
+  },
+  "targets": {},
+  "etags": {}
 }

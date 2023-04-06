@@ -141,7 +141,7 @@ const ToDos = () => {
             }`}
         >
           <h2 className="text-2xl md:text-3xl font-semibold">
-            ToDo's Of - {" "}
+            <img width={50} className="display: inline" src="https://img.icons8.com/nolan/256/windows-notepad.png" alt="" /> ToDo's Of - {" "}
             <span className="text-sky-400">
               {auth?.currentUser?.displayName}
             </span>
